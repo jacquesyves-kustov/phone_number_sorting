@@ -42,3 +42,6 @@ class FilePaginatedReader:
                 fetched_lines.append(line)
 
         return fetched_lines
+
+    def is_file_fully_read(self):  # TODO: Change me into a property?
+        return self._is_file_read
