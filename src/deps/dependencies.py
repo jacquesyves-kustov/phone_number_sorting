@@ -5,10 +5,6 @@ from tools.files.manager import FileManager
 from tools.files.paginated_reader import FilePaginatedReader
 
 
-def sort_list(lst: list[str]) -> list[str]:
-    return sorted(lst)
-
-
 file_manager = FileManager()
 
 
@@ -17,6 +13,10 @@ file_reader = FilePaginatedReader(
     file_name=AppConfig.PHONE_NUMBERS_SOURCE_FILE,
     rows_per_fetch=AppConfig.READER_LINES_PER_FETCH,
 )
+
+
+def sort_list(lst: list[str]) -> list[str]:
+    return sorted(lst)
 
 
 file_splitter = FileSplitter(
