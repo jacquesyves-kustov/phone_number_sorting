@@ -2,14 +2,6 @@ import os
 from typing import Final
 
 
-class FilePaginatedReaderError(RuntimeError):
-    pass
-
-
-class FilePaginatedReaderFileNotFoundError(FilePaginatedReaderError):
-    pass
-
-
 class FilePaginatedReader:
     def __init__(
         self,
