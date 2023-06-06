@@ -26,6 +26,9 @@ class FileSplitter:
         self._preprocess_handler = preprocess_handler
         self._created_files_names: list[str] = []
 
+    def get_created_files_names(self):  # TODO Change to property?
+        return self._created_files_names
+
     def split_file(self):
         lines_to_be_written: list[str] = []
 
