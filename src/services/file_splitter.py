@@ -6,13 +6,12 @@ from tools.files.paginated_reader import FilePaginatedReader
 
 
 class FileSplitter:
-    new_files_name_base: Final[str] = 'split_result'
-
     def __init__(
         self,
         file_manager: FileManager,
         source_file_reader: FilePaginatedReader,
         output_directory: str,
+        new_files_name_base: str,
         max_lines_in_files: int,
         preprocess_handler: Optional[Callable[[list[str]], list[str]]],
     ):
@@ -21,9 +20,10 @@ class FileSplitter:
         self._source_file_reader: FilePaginatedReader = source_file_reader
 
         # Set instance parameters
-        self.output_directory = output_directory
+        self.output_directory: str = output_directory
+        self._new_files_name_base: Final[str] = new_files_name_base
         self._max_lines_in_files: Final[int] = max_lines_in_files
-        self._preprocess_handler = preprocess_handler
+        self._preprocess_handler: Optional[Callable[[list[str]], list[str]]] = preprocess_handler
         self._created_files_names: list[str] = []
 
     def get_created_files_names(self):  # TODO Change to property?
@@ -52,7 +52,7 @@ class FileSplitter:
         self._write_to_file(file_name=new_file_name, lines=lines_to_write)
 
     def _generate_new_file_name(self) -> str:
-        name = self.new_files_name_base + str(len(self._created_files_names))
+        name = self._new_files_name_base + str(len(self._created_files_names))
         self._created_files_names.append(name)
         return name
 

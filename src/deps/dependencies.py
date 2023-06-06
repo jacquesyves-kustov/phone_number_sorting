@@ -25,6 +25,7 @@ file_splitter = FileSplitter(
     file_manager=file_manager,
     max_lines_in_files=AppConfig.SPLITTER_MAX_ROW_IN_FILE,
     preprocess_handler=sort_list,
+    new_files_name_base=AppConfig.SPLITTER_NEW_FILE_NAME_BASE,
 )
 
 
