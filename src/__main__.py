@@ -16,7 +16,7 @@ def _init_resources() -> (SourceFileGenerator, FilePaginatedReader, FileSplitter
     source_file_generator = source_file_generator_factory(
         output_directory_path=AppConfig.RESOURCES_PATH,
         output_file_name=AppConfig.PHONE_NUMBERS_SOURCE_FILE,
-        rows_number_in_output_file=AppConfig.ROWS_NUMBER_IN_OUTPUT_FILE,
+        rows_number_in_output_file=AppConfig.NUMBER_OF_ROWS_IN_GENERATED_FILE,
         limit_rows_to_write_per_time=AppConfig.LIMIT_ROWS_TO_WRITE_PER_TIME,
     )
 
