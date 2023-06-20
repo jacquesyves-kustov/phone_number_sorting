@@ -8,6 +8,7 @@ from deps.dependencies import (
 )
 from services.file_splitter import FileSplitter
 from services.source_generator import SourceFileGenerator
+from tools.execution_timer import measure_time
 from tools.files.paginated_reader import FilePaginatedReader
 
 
@@ -33,6 +34,7 @@ def _init_resources() -> (SourceFileGenerator, FilePaginatedReader, FileSplitter
     return source_file_generator, file_reader, file_splitter
 
 
+@measure_time
 def main():
     # Step 0) Init resources
     source_file_generator, file_reader, file_splitter = _init_resources()
