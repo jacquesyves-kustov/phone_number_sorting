@@ -1,5 +1,5 @@
 import os
-from typing import Final, Callable, Optional
+from typing import Final, Callable, Optional, Type
 
 from tools.files.manager import FileManager
 from tools.files.paginated_reader import FilePaginatedReader
@@ -8,7 +8,7 @@ from tools.files.paginated_reader import FilePaginatedReader
 class FileSplitter:
     def __init__(
         self,
-        file_manager: FileManager,
+        file_manager_cls: Type[FileManager],
         source_file_reader: FilePaginatedReader,
         output_directory: str,
         new_files_name_base: str,
@@ -16,7 +16,7 @@ class FileSplitter:
         preprocess_handler: Optional[Callable[[list[str]], list[str]]],
     ):
         # Init dependencies
-        self.file_manager = file_manager
+        self.file_manager_cls = file_manager_cls
         self._source_file_reader: FilePaginatedReader = source_file_reader
 
         # Set instance parameters
@@ -45,7 +45,7 @@ class FileSplitter:
 
     def _create_new_result_file(self, lines_to_write: list[str]):
         new_file_name = self._generate_new_file_name()
-        self.file_manager.create_file(
+        self.file_manager_cls.create_file(
             directory_path=self.output_directory,
             file_name=new_file_name,
         )
