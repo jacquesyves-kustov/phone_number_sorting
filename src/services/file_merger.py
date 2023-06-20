@@ -1,4 +1,5 @@
 import os
+from typing import Type
 
 from tools.files.manager import FileManager
 from tools.files.paginated_reader import FilePaginatedReader
@@ -11,10 +12,10 @@ class FileMerger:
         input_file_names: list[str],
         output_file_directory: str,
         output_file_name: str,
-        file_manager: FileManager,
+        file_manager_cls: Type[FileManager],
     ):
         # Init dependencies
-        self._file_manager = file_manager
+        self._file_manager_cls = file_manager_cls
 
         # Set instance parameters
         self.result_file_directory = output_file_directory
@@ -41,7 +42,7 @@ class FileMerger:
             self._refresh_value_pool(min_element_index)
 
     def _create_result_file(self):
-        self._file_manager.create_file(self.result_file_directory, self.result_file_name)
+        self._file_manager_cls.create_file(self.result_file_directory, self.result_file_name)
 
     def _is_value_pool_empty(self) -> bool:
         return bool(self._values_pool)
