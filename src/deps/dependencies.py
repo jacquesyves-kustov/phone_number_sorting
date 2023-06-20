@@ -3,8 +3,26 @@ from typing import Optional, Callable
 from config import AppConfig
 from services.file_merger import FileMerger
 from services.file_splitter import FileSplitter
+from services.source_generator import SourceFileGenerator
 from tools.files.manager import FileManager
 from tools.files.paginated_reader import FilePaginatedReader
+from tools.phone_number_generator import PhoneNumberGenerator
+
+
+def source_file_generator_factory(
+    output_directory_path: str,
+    output_file_name: str,
+    rows_number_in_output_file: int,
+    limit_rows_to_write_per_time: int,
+) -> SourceFileGenerator:
+    return SourceFileGenerator(
+        output_directory=output_directory_path,
+        output_file_name=output_file_name,
+        phone_number_generator_cls=PhoneNumberGenerator,
+        file_manager_cls=FileManager,
+        rows_number_in_output_file=rows_number_in_output_file,
+        limit_rows_to_write_per_time=limit_rows_to_write_per_time,
+    )
 
 
 def file_reader_factory(directory_path: str, file_name: str) -> FilePaginatedReader:
