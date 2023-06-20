@@ -1,7 +1,7 @@
 import os
 from typing import Type
 
-from tools.files.manager import FileManager
+from tools.files.manager import FileManager, FileManagerFileAlreadyExistsError
 from tools.files.paginated_reader import FilePaginatedReader
 
 
@@ -42,7 +42,11 @@ class FileMerger:
             self._refresh_value_pool(min_element_index)
 
     def _create_result_file(self):
-        self._file_manager_cls.create_file(self.result_file_directory, self.result_file_name)
+        # It will clear result file if it is already created
+        try:
+            self._file_manager_cls.create_file(self.result_file_directory, self.result_file_name)
+        except FileManagerFileAlreadyExistsError:
+            open(os.path.join(self.result_file_directory, self.result_file_name), 'w').close()
 
     def _is_value_pool_empty(self) -> bool:
         return bool(self._values_pool)
