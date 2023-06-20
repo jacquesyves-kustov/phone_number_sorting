@@ -12,7 +12,7 @@ class FilePaginatedReader:
         self._file_path: str = os.path.join(directory_path, file_name)
         self._rows_per_fetch: Final[int] = rows_per_fetch
         self._last_fetched_line: int = 0
-        self._is_file_read = False
+        self._is_file_read: bool = False
 
     def read_next_lines(self) -> list[str]:
         current_row = 0
