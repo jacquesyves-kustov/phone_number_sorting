@@ -15,12 +15,6 @@ def file_reader_factory(directory_path: str, file_name: str) -> FilePaginatedRea
     )
 
 
-file_reader = file_reader_factory(
-    directory_path=AppConfig.RESOURCES_PATH,
-    file_name=AppConfig.PHONE_NUMBERS_SOURCE_FILE,
-)
-
-
 def sort_list(lst: list[str]) -> list[str]:
     return sorted(lst)
 
@@ -38,13 +32,6 @@ def file_splitter_factory(
         max_lines_in_files=AppConfig.SPLITTER_MAX_ROW_IN_FILE,
         new_files_name_base=AppConfig.SPLITTER_NEW_FILE_NAME_BASE,
     )
-
-
-file_splitter = file_splitter_factory(
-    output_directory=AppConfig.RESOURCES_PATH,
-    source_file_reader=file_reader,
-    preprocess_handler=sort_list,
-)
 
 
 def file_merger_factory(input_file_names: list[str]):
