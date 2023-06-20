@@ -46,11 +46,9 @@ class SourceFileGenerator:
                 limit=phone_number_numbers_to_generate,
             )
 
-            # TODO: Rewrite me pls ._.
             with open(output_file_path, 'a') as f:
                 for number in new_numbers:
                     f.write(number)
-                    written_rows_counter += 1
+                    f.write('\n')
 
-                    if written_rows_counter < self._rows_number_in_output_file:
-                        f.write('\n')
+            written_rows_counter += len(new_numbers)
