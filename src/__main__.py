@@ -46,7 +46,7 @@ def main():
     file_splitter.split_file()
 
     # Step 3) Merge resulted files into one
-    file_merger = file_merger_factory(file_splitter.get_created_files_names())
+    file_merger = file_merger_factory(file_splitter.created_files_names)
     file_merger.merge_files()
 
 

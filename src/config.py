@@ -1,9 +1,8 @@
-import os
+from pathlib import Path
 
 
-# TODO: Change to pydantic config class?
 class AppConfig:
-    RESOURCES_PATH = os.path.relpath('..\\resources', os.path.dirname(__file__))
+    RESOURCES_PATH = Path(__file__).parent / '../resources'
     PHONE_NUMBERS_SOURCE_FILE = 'phones_raw.txt'
     READER_LINES_PER_FETCH = 500
     SPLITTER_MAX_ROW_IN_FILE = 1_000

@@ -53,11 +53,9 @@ class FileMerger:
 
     def _find_min_value_index(self) -> int:
         min_value_index = 0
-        min_value = self._values_pool[min_value_index]
 
         for element_index, value in enumerate(self._values_pool):
-            if value < min_value:
-                min_value = value
+            if value < self._values_pool[min_value_index]:
                 min_value_index = element_index
 
         return min_value_index
