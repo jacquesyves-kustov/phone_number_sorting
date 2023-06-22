@@ -52,13 +52,7 @@ class FileMerger:
         return bool(self._values_pool)
 
     def _find_min_value_index(self) -> int:
-        min_value_index = 0
-
-        for element_index, value in enumerate(self._values_pool):
-            if value < self._values_pool[min_value_index]:
-                min_value_index = element_index
-
-        return min_value_index
+        return self._values_pool.index(min(self._values_pool))
 
     def _write_into_result_file(self, line):
         with open(os.path.join(self.result_file_directory, self.result_file_name), 'a') as f:
