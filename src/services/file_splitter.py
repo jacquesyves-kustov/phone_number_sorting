@@ -26,13 +26,14 @@ class FileSplitter:
         self._preprocess_handler: Optional[Callable[[list[str]], list[str]]] = preprocess_handler
         self._created_files_names: list[str] = []
 
-    def get_created_files_names(self):  # TODO Change to property?
+    @property
+    def created_files_names(self) -> list[str]:
         return self._created_files_names
 
     def split_file(self):
         lines_to_be_written: list[str] = []
 
-        while not self._source_file_reader.is_file_fully_read():
+        while not self._source_file_reader.is_file_read:
             fetched_lines = self._source_file_reader.read_next_lines()
             lines_to_be_written += fetched_lines
 

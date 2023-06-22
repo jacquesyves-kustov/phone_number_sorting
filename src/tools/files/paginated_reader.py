@@ -14,6 +14,10 @@ class FilePaginatedReader:
         self._prev_byte_offset: int = 0
         self._is_file_read: bool = False
 
+    @property
+    def is_file_read(self) -> bool:
+        return self._is_file_read
+
     def read_next_lines(self) -> list[str]:
         fetched_lines = []
 
@@ -31,6 +35,3 @@ class FilePaginatedReader:
             self._prev_byte_offset = f.tell()
 
         return fetched_lines
-
-    def is_file_fully_read(self):  # TODO: Change me into a property?
-        return self._is_file_read
