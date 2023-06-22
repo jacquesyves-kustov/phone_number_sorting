@@ -1,7 +1,6 @@
 from pathlib import Path
 
 
-# TODO: Change to pydantic config class?
 class AppConfig:
     RESOURCES_PATH = Path(__file__).parent / '../resources'
     PHONE_NUMBERS_SOURCE_FILE = 'phones_raw.txt'
