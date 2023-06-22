@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from config import AppConfig
 from deps.dependencies import (
     file_merger_factory,
@@ -34,20 +36,31 @@ def _init_resources() -> (SourceFileGenerator, FilePaginatedReader, FileSplitter
     return source_file_generator, file_reader, file_splitter
 
 
+def _print_timestamp(text: str):
+    current_time = datetime.now().strftime('%H:%M:%S')
+    print(text, current_time)
+
+
 @measure_time
 def main():
     # Step 0) Init resources
+    _print_timestamp('Init app:')
     source_file_generator, file_reader, file_splitter = _init_resources()
 
     # Step 1) Generate raw source file
+    _print_timestamp('Start source file generation:')
     source_file_generator.generate_source_file()
 
     # Step 2) Split the raw file into several small files
+    _print_timestamp('Start splitting source file:')
     file_splitter.split_file()
 
     # Step 3) Merge resulted files into one
+    _print_timestamp('Start merging:')
     file_merger = file_merger_factory(file_splitter.created_files_names)
     file_merger.merge_files()
+
+    _print_timestamp('Complete:')
 
 
 main()
