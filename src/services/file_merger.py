@@ -36,7 +36,7 @@ class FileMerger:
     def merge_files(self):
         self._create_result_file()
 
-        while self._is_value_pool_empty():
+        while self._values_pool:
             min_element_index = self._find_min_value_index()
             self._write_into_result_file(self._values_pool[min_element_index])
             self._refresh_value_pool(min_element_index)
@@ -47,9 +47,6 @@ class FileMerger:
             self._file_manager_cls.create_file(self.result_file_directory, self.result_file_name)
         except FileManagerFileAlreadyExistsError:
             open(os.path.join(self.result_file_directory, self.result_file_name), 'w').close()
-
-    def _is_value_pool_empty(self) -> bool:
-        return bool(self._values_pool)
 
     def _find_min_value_index(self) -> int:
         return self._values_pool.index(min(self._values_pool))
