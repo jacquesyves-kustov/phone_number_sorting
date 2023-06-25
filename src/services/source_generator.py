@@ -45,7 +45,7 @@ class SourceFileGenerator:
         estimated_new_file_size = self._get_estimated_source_file_size_in_bytes() * self._rows_number_in_output_file
         total, used, free = disk_usage('/')
 
-        return free < estimated_new_file_size
+        return free > estimated_new_file_size
 
     @staticmethod
     def _get_estimated_source_file_size_in_bytes():
