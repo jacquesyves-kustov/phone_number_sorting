@@ -40,7 +40,7 @@ class AppConfig:
             print(f'Auto setup is completed successfully.')
             print(f'{memory_to_use_in_bytes / 1_000_000} mb of RAM will be used by app.')
             print(f'{round((cls.NUMBER_OF_ROWS_IN_GENERATED_FILE * cls._get_estimated_row_size_in_bytes()) / (1024 ** 3), 2)} gb is the source file size.')
-            print(f'{math.ceil((cls.NUMBER_OF_ROWS_IN_GENERATED_FILE // cls.SPLITTER_MAX_ROW_IN_FILE))} temporary files will be created.')
+            print(f'{math.ceil((cls.NUMBER_OF_ROWS_IN_GENERATED_FILE / cls.SPLITTER_MAX_ROW_IN_FILE))} temporary files will be created.')
             print(f'{cls.SPLITTER_MAX_ROW_IN_FILE} rows is the limit for temporary files.')
             print(f'{cls.READER_LINES_PER_FETCH} rows will be fetched from source file per time.')
             print(f'{cls.LIMIT_ROWS_TO_WRITE_PER_TIME} rows is the rows limit for writing to the result file.')
