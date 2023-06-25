@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from config import AppConfig
+from config import AppConfig, AppConfigAutoSetupError
 from deps.dependencies import (
     file_merger_factory,
     file_reader_factory,
@@ -15,6 +15,11 @@ from tools.files.paginated_reader import FilePaginatedReader
 
 
 def _init_resources() -> (SourceFileGenerator, FilePaginatedReader, FileSplitter):
+    try:
+        AppConfig.auto_setup()
+    except AppConfigAutoSetupError:
+        print('Auto settings setup is skipped. Default settings will be used.')
+
     source_file_generator = source_file_generator_factory(
         output_directory_path=AppConfig.RESOURCES_PATH,
         output_file_name=AppConfig.PHONE_NUMBERS_SOURCE_FILE,
