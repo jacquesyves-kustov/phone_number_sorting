@@ -66,13 +66,13 @@ class SourceFileGenerator:
             if self._rows_number_in_output_file - written_rows_counter < phone_number_numbers_to_generate:
                 phone_number_numbers_to_generate = self._rows_number_in_output_file - written_rows_counter
 
-            new_numbers = self._phone_number_generator_cls.generate_random_numbers(
-                limit=phone_number_numbers_to_generate,
-            )
+            new_numbers = self._phone_number_generator_cls.generate_random_numbers(phone_number_numbers_to_generate)
 
             with open(output_file_path, 'a') as f:
-                for number in new_numbers:
-                    f.write(number)
-                    f.write('\n')
+                line = '\n'.join(new_numbers)
+                f.write(line)
 
             written_rows_counter += len(new_numbers)
+
+        with open(output_file_path, 'a') as f:
+            f.write('\n')
