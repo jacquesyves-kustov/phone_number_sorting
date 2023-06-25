@@ -59,4 +59,5 @@ def file_merger_factory(input_file_names: list[str]):
         input_file_directory=AppConfig.RESOURCES_PATH,
         output_file_directory=AppConfig.RESOURCES_PATH,
         output_file_name=AppConfig.MERGER_RESULT_FILE_NAME,
+        limit_rows_to_write=AppConfig.LIMIT_ROWS_TO_WRITE_PER_TIME,
     )

@@ -12,6 +12,7 @@ class FileMerger:
         input_file_names: list[str],
         output_file_directory: str,
         output_file_name: str,
+        limit_rows_to_write: int,
         file_manager_cls: Type[FileManager],
     ):
         # Init dependencies
@@ -20,6 +21,7 @@ class FileMerger:
         # Set instance parameters
         self.result_file_directory = output_file_directory
         self.result_file_name = output_file_name
+        self._limit_rows_to_write = limit_rows_to_write
 
         # Init file readers
         self._readers = [
@@ -36,10 +38,18 @@ class FileMerger:
     def merge_files(self):
         self._create_result_file()
 
+        lines_to_write = []
         while self._values_pool:
             min_element_index = self._find_min_value_index()
-            self._write_into_result_file(self._values_pool[min_element_index])
+            lines_to_write.append(self._values_pool[min_element_index])
             self._refresh_value_pool(min_element_index)
+
+            if len(lines_to_write) > self._limit_rows_to_write:
+                self._write_into_result_file(lines_to_write)
+                lines_to_write.clear()
+
+        if lines_to_write:
+            self._write_into_result_file(lines_to_write)
 
     def _create_result_file(self):
         # It will clear result file if it is already created
@@ -51,7 +61,8 @@ class FileMerger:
     def _find_min_value_index(self) -> int:
         return self._values_pool.index(min(self._values_pool))
 
-    def _write_into_result_file(self, line):
+    def _write_into_result_file(self, lines: list[str]):
+        line = ''.join(lines)
         with open(os.path.join(self.result_file_directory, self.result_file_name), 'a') as f:
             f.write(line)
 
